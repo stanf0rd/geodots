@@ -1,0 +1,25 @@
+package models
+
+import (
+	"database/sql"
+	"fmt"
+	"log"
+
+	_ "github.com/lib/pq"
+)
+
+var db *sql.DB
+
+func InitDB(dbInfo string) {
+	var err error
+	db, err = sql.Open("postgres", dbInfo)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	if err = db.Ping(); err != nil {
+		log.Panic(err)
+	}
+
+	fmt.Println("Successfully connected!")
+}
